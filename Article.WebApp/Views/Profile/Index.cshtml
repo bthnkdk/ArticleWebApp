@@ -1,0 +1,204 @@
+﻿@model Article.Dto.Entity.UserDto
+@using Article.Utilities
+
+
+@{
+    ViewBag.Title = "Profil Sayfası";
+}
+@section pageTitle{Profil İşlemleri}
+@{
+    string FullName = ((SessionManager)Session["SessionContext"]).FullName;
+    string Job = ((SessionManager)Session["SessionContext"]).Job;
+    string imageUrl = ((SessionManager)Session["SessionContext"]).ImageUrl;
+}
+
+<div class="row profile">
+    <div class="col-md-3">
+        <div class="profile-sidebar card-shadow">
+
+            <div class="profile-userpic">
+                <img src="@imageUrl" class="img-responsive" alt="">
+
+            </div>
+
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    @FullName
+                </div>
+                <div class="profile-usertitle-job">
+                    @Job
+                </div>
+            </div>
+
+            @*<div class="profile-userbuttons">
+                    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                </div>*@
+
+
+            <!-- END MENU -->
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="profile-content card-shadow">
+            <div class="tabbable-panel">
+                <div class="tabbable-line">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_informations" data-toggle="tab">
+                                Bilgiler
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_pass_reset" data-toggle="tab">
+                                Şifre Değiştir
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_image_change" data-toggle="tab">
+                                Profil Resmi
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_informations">
+                            <div class="form-group">
+                                <label class="control-label">Tam Ad </label>
+                                <input id="inputFullname" type="text" class="form-control" placeholder="ad soyad" value="@Model.FullName" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Meslek </label>
+                                <input id="inputJob" type="text" class="form-control" placeholder="meslek" value="@Model.Job" />
+                            </div>
+                            <div class="form-group">
+                                <a href="#" onclick="funcUpdateByName()" class="btn btn-primary">Değişiklikleri Kaydet</a>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="tab_pass_reset">
+                            <div class="form-group">
+                                <label class="control-label">Kullanıcı adı </label>
+                                <input id="inputUsername" type="text" class="form-control" placeholder="kullanıcı adı" value="@Model.UserName" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Şifre</label>
+                                <input id="inputPassword" type="password" class="form-control" placeholder="şifre" value="@Model.Password" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Şifre tekrar</label>
+                                <input id="inputRePassword" type="password" class="form-control" placeholder="şifre tekrar" />
+                            </div>
+                            <div class="form-group">
+                                <a href="#" onclick="funcUpdateByPass()" class="btn btn-primary">Değişiklikleri Kaydet</a>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="tab_image_change">
+                            <div class="col-md-12 row">
+                                <div class=" col-md-3 thumbnail">
+                                    <img id="imgProfile" src="@imageUrl">
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 row" style="margin-top:10px;">
+                                <div class="caption">
+                                    <input id="fileSelect" type="file" accept="image/*" onchange="funcImageChange(this)" style="display:none;" />
+                                    <a href="#" onclick="$('#fileSelect').click()" class="btn btn-warning">Resim Seç</a>
+                                    <a href="#" onclick="funcImageUpdate()" class="btn btn-success">Güncelle</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function funcUpdateByName() {
+        var data = { WhichUpdate: "nameJob", FullName: $("#inputFullname").val(), Job: $("#inputJob").val() };
+        if (data.FullName.trim() != "" && data.Job.trim() != "") {
+            $.ajax({
+                url: "/profile/update",
+                type: "post",
+                data: data,
+                success: function (e) {
+                    if (e == true)
+                        ShowMessage("success", "BAŞARILI", "Değişiklikler Başarıyla Gerçekleşti.");
+                }
+            });
+        }
+        else {
+            ShowMessage("warning", "HATA", "Gerekli alanlar boş geçilemez");
+        }
+    }
+
+    function funcUpdateByPass() {
+        isSuccess = false;
+        var data =
+        {
+            WhichUpdate: "userPass", UserName: $("#inputUsername").val(), Password: $("#inputPassword").val()
+        };
+        if (data.UserName.trim() != "" && data.Password.trim() != "") {
+            if ($("#inputPassword").val().trim() == $("#inputRePassword").val().trim()) {
+                $.ajax({
+                    url: "profile/update",
+                    type: "post",
+                    data: data,
+                    success: function (e) {
+                        if (e == true) {
+                            isSuccess = true;
+                        }
+                    },
+                    complete: function () {
+                        if (isSuccess) {
+                            ShowMessage("success", "Başarılı", "İşleminiz başarıyla değiştirildi.");
+                        }
+                        else {
+                            ShowMessage("error", "HATA", "Aynı isimde kullanıcı ismi mevcut.");
+                        }
+                        isSuccess = false;
+                    }
+                })
+            }
+            else {
+                ShowMessage("info", "HATA", "Şifre alanları uyuşmuyor.");
+            }
+        }
+        else {
+            ShowMessage("warning", "HATA", "Gerekli alanlar boş geçilemez.");
+        }
+    }
+    function funcImageChange(e) {
+        var data = new FormData();
+        data.append("ImageFormData", e.files[0]);
+        $.ajax({
+            url: "/profile/TempImage",
+            type: "post",
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (e) {
+                $("#imgProfile").attr("src", "/profile/TempImageShow")
+            }
+
+        })
+    }
+    function funcImageUpdate() {
+        $.ajax({
+            url: "/profile/ImageUpdate",
+            type: "post",
+            success: function (e) {
+                if (e == true) {
+                    ShowMessage("success", "BAŞARILI", "Resim başarıyla değiştirildi");
+                }
+            }
+
+        })
+    }
+
+</script>
+
+
+

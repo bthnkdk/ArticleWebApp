@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "PostDetail";
+    Layout = "~/Views/Shared/_Layout_Site.cshtml";
+    Article.Utilities.SessionManager logonUser = (Article.Utilities.SessionManager)Session["SessionContext"];
+}
+@model Article.Dto.Entity.PostDetailPageDto
+@section breadCrumb{
+    <div>
+        <ol class="breadcrumb">
+            <li><a href="/site/Index">Anasayfa</a></li>
+            <li><a href="/@Article.Utilities.StringManager.ToSlug(Model.Category.Name)-@Model.Category.Id">@Model.Category.Name</a></li>
+            <li><a href="#">@Model.PostDetail.Title</a></li>
+
+        </ol>
+    </div>
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default panel-google-plus card-shadow">
+                <div class="panel-heading">
+                    <img class="img-circle pull-left" src="@Model.PostDetail.UserImageUrl/50/50">
+                    <h3>@Model.PostDetail.FullName</h3>
+                    <h5><span>@Model.PostDetail.Job</span> <br /> <span>@Model.PostDetail.CreatedOnString</span> </h5>
+                </div>
+                <div class="panel-body">
+                    <h2><em>@Model.PostDetail.Title</em></h2>
+                    @MvcHtmlString.Create(HttpUtility.HtmlDecode(Model.PostDetail.PostContent))
+                </div>
+                <!--COMMENT-->
+                <div class="panel-body">
+
+                    <div class="detailBox">
+                        <div class="titleBox">
+                            <i class="fa fa-comment">Yorumlar</i>
+                            <button type="button" class="close" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="actionBox">
+                            <ul class="commentList">
+                                @foreach (var item in Model.Comments)
+                                {
+                                    <li>
+                                        <div class="commenterImage">
+                                            <img src="@item.ProfileImageUrl" />
+                                        </div>
+                                        <div class="commentText">
+                                            <span class="date sub-text">@($"{item.Fullname} {item.AddedDate.ToShortDateString()}")</span> <p class="">@item.Text</p>
+
+                                        </div>
+                                    </li>
+                                }
+
+
+                            </ul>
+                            @if (logonUser != null)
+                            {
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        @Html.Hidden("PostId", Model.PostDetail.Id)
+                                        <input id="inputCommentId" type="text" class="form-control" style="display:none" />
+                                        <input id="inputCommentName" type="text" class="form-control" placeholder="Yorumunuz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="javascript:funcCommentSave();" class="btn btn-default">
+                                            Paylaş
+                                        </a>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <hr />
+                                <p>Yorum yapmak için giriş yapınız.</p>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <!--FOOTER ICON-->
+                <div class="panel-footer">
+                    <a href="//facebook.com/sharer/sharer.php?u=@Request.Url" class="btn btn-default" target="_blank">
+                        <i class="fa fa-facebook pull-right"></i>
+                    </a>
+                    <a href="#" class="btn btn-default">
+                        <i class="fa fa-twitter pull-right"></i>
+                    </a>
+                    <a href="#" class="btn btn-default">   <i class="fa fa-google-plus pull-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="right-sidebar">
+                @foreach (var item in Model.PostList)
+                {
+                    <div class=" panel post">
+                        <div class="post-img-content">
+                            <img src="@item.PostImageUrl" class="img-responsive" />
+                            <span class="post-title">
+                                <a href="/@item.Id/@Article.Utilities.StringManager.ToSlug(item.CategoryName)/@item.Slug-@item.CategoryId">
+                                    @item.Title
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function funcCommentSave() {
+        if ($("#inputCommentId").val() == 0) {
+            if ($("#inputCommentName").val() == "") {
+                ShowMessage("warning", "Boş geçilemez", "Yorum boş olarak gönderilemez.");
+            }
+        }
+        var data =
+        {
+            Id: $("#inputCommentId").val(),
+            PostId: $("#PostId").val(),
+            Text: $("#inputCommentName").val()
+        };
+        $.ajax({
+            url: "/Site/Insert",
+            type: "Post",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            success: function (e) {
+                if (e == true) {
+                    window.location.reload();
+                    ShowMessage("success", "Tebrikler", "Yorumunuz eklendi");
+                }
+
+            }
+        });
+    }
+
+</script>

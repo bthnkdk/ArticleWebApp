@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Site.cshtml";
+   
+}
+@model List<Article.Dto.Entity.PostUserDto>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4">
+            <div class="card hovercard">
+                <div class="cardheader bgGreen" style="background-image:url(@item.PostImageUrl)">
+                    <div class="post-overlay"></div>
+                    <div class="title" style="text-align:left;position:absolute; bottom:0; color:#fff;">
+                        <img class="img-responsive img-circle " src="@item.UserImageUrl/50/50" />
+                        <div class="user-info"><h4>@item.FullName<sm>@item.Job</sm></h4></div>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title"><a href="/@item.Id/@Article.Utilities.StringManager.ToSlug(item.CategoryName)/@item.Slug-@item.CategoryId">@item.Title</a></div>
+                </div>
+                <hr />
+                <div class="info">
+                    <div class="short-description">@item.ShortDescription</div>
+                </div>
+                <hr />
+                <div class="bottom">
+                    <a href="#">
+                       <strong style="color:@item.Color !important;">@item.CategoryName</strong>
+                    </a>
+                    @*<a href="//facebook.com/sharer/sharer.php?u=@Request.Url@Article.Utilities.StringManager.ToSlug(item.CategoryName)/@item.Slug-@item.CategoryId" target="_blank">
+                            <i class="fa fa-facebook pull-right"></i>
+                        </a>*@
+                    <a href="#">
+                        <i class="fa fa-comment pull-right" style="font-size:14px !important;">@item.Count</i>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-eye pull-right" style="font-size:14px !important;">275</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+</div>

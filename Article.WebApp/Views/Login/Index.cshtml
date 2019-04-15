@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Giriş Sayfası";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@if (Session["SessionContext"] != null)
+{
+    Response.Redirect("/profile");
+}
+
+     <div class='box'>
+         <div class='box-form'>
+             <div class='box-login-tab'></div>
+             <div class='box-login-title'>
+                 <div class='i i-login'></div><h2>Hoşgeldin</h2>
+             </div>
+             <div class='box-login'>
+                 <div class='fieldset-body'>
+                     <button onclick="openLoginInfo();" class='b b-form i i-more' title='Yazar Olmak için Tıkla'></button>
+                     <p class="field">
+
+                         <input type="text" id="inputUserName" class="form-control" placeholder="kullanıcı adınız" required autofocus />
+
+                     </p>
+                     <p class="field">
+
+                         <input type="password" id="inputPassword" class="form-control" placeholder="şifreniz" required />
+
+                     </p>
+
+                     <input type="button" id="test" value="Login Ol" onclick="LoginControl()" />
+                 </div>
+             </div>
+         </div>
+         <div class='box-info'>
+             <p>
+                 <button onclick="closeLoginInfo();" class='b b-info i i-left' title='Geri Dön'></button><h3>Yazar Ol ?</h3>
+             </p>
+             <div class='line-wh'></div>
+             <button onclick="" class='b-support' title='Şifremi unuttum ?'> Şifremi unuttum ?</button>
+             <button onclick="" class='b-support' title='Contact Me'> Mail !</button>
+
+         </div>
+     </div>
+
+
+<script>
+    $("body").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            LoginControl();
+        }
+    })
+    function LoginControl() {
+        var data = { UserName: $("#inputUserName").val(), Password: $("#inputPassword").val() };
+        if (data.UserName.trim() != "" && data.Password.trim()) {
+
+            $.ajax({
+                url: "/Login/LoginControl",
+                type: "POST",
+                data: data,
+                success: function (e) {
+                    if (e == "loginFailed") {
+                        ShowMessage("error", "Giriş Hatası", "Yanlış kullanıcı adı veya şifre")
+                    }
+                    else {
+                        var delay = 1000;
+                        setTimeout(function () { window.location = e; }, delay);
+                        ShowMessage("success", "Giriş Başarılı", "Hoşgeldin  " + data.UserName)
+                    }
+
+                }
+            });
+        }
+        else {
+            ShowMessage("warning", "Giriş Hatası", "Kullanıcı adı veya şifre boş geçilemez") 
+        }
+    }
+</script>
