@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Site.cshtml";
-   
+
 }
 @model List<Article.Dto.Entity.PostUserDto>
 
@@ -28,7 +28,7 @@
                 <hr />
                 <div class="bottom">
                     <a href="#">
-                       <strong style="color:@item.Color !important;">@item.CategoryName</strong>
+                        <strong style="color:@item.Color !important;">@item.CategoryName</strong>
                     </a>
                     @*<a href="//facebook.com/sharer/sharer.php?u=@Request.Url@Article.Utilities.StringManager.ToSlug(item.CategoryName)/@item.Slug-@item.CategoryId" target="_blank">
                             <i class="fa fa-facebook pull-right"></i>
@@ -37,7 +37,7 @@
                         <i class="fa fa-comment pull-right" style="font-size:14px !important;">@item.Count</i>
                     </a>
                     <a href="#">
-                        <i class="fa fa-eye pull-right" style="font-size:14px !important;">275</i>
+                        <i class="fa fa-eye pull-right" style="font-size:14px !important;">@item.ViewCount</i>
                     </a>
                 </div>
             </div>

@@ -20,5 +20,6 @@ namespace Article.BusinessLayer.Interfaces
         List<PostUserDto> GetPostAll(int? categoryId); //tüm makaleleri getir
         PostDetailDto GetPostDetail(int id); //url koduna makale getir 
         byte[] GetPostImageById(int Id);
+        void UpdatePageCount(int id);
     }
 }

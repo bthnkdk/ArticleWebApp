@@ -13,7 +13,6 @@ namespace Article.Dto.Entity
         public int PostId { get; set; }
         public string Text { get; set; }
         public DateTime AddedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
         public string Fullname { get; set; }
         public string ProfileImageUrl { get; set; }
         public int Count { get; set; }

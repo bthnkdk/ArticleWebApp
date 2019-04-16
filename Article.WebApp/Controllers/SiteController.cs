@@ -26,7 +26,11 @@ namespace Article.WebApp.Controllers
             _userService = userService;
             _commentService = commService;
         }
+
+
         public static string html;
+
+
 
         public ActionResult Index()
         {
@@ -54,6 +58,31 @@ namespace Article.WebApp.Controllers
             pdp.Comments = _commentService.GetCommentAll(id).ToList();
             pdp.Category = _catService.GetCategoryDetailByCategoryId(categoryId);
             pdp.PostList = _postService.GetPostAll(null).Take(5).ToList();
+            if (Request.Cookies["test1"] != null)
+            {
+                if (Request.Cookies["test1"][string.Format("pId_{0}", id)] == null)
+                {
+                    HttpCookie cookie = Request.Cookies["test1"];
+                    cookie[string.Format("pId_{0}", id)] = "1";
+                    cookie.Expires = DateTime.Now.AddDays(1);
+                    Response.Cookies.Add(cookie);
+
+                    _postService.UpdatePageCount(id);
+                    _uow.SaveChanges();
+                }
+
+            }
+            else
+            {
+                HttpCookie cookie = new HttpCookie("test1");
+                cookie[string.Format("pId_{0}", id)] = "1";
+                cookie.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(cookie);
+
+                _postService.UpdatePageCount(id);
+                _uow.SaveChanges();
+
+            }
             return View(pdp);
         }
 

@@ -20,6 +20,7 @@ namespace Article.Dto.Entity
         public string Job { get; set; }
         public string Color { get; set; }
         public int Count { get; set; }
+        public int ViewCount { get; set; }
 
     }
 }

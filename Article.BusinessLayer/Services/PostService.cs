@@ -74,10 +74,11 @@ namespace Article.BusinessLayer.Services
                             Slug = p.Title,
                             ShortDescription = p.ShortDescription,
                             PostImageUrl = "/PostImageView/" + p.Id,
-                            UserImageUrl =u.Image !=null ? "/ProfileImageView/" + u.Id : ConstantTypes.profileImage,
+                            UserImageUrl = u.Image != null ? "/ProfileImageView/" + u.Id : ConstantTypes.profileImage,
                             FullName = u.FullName,
                             Job = u.Job,
                             Color = c.Color,
+                            ViewCount = p.ViewCount,
                             Count = commentCount.Count()
 
                         }).Take(ConstantTypes.postCount).ToList();
@@ -189,6 +190,16 @@ namespace Article.BusinessLayer.Services
         {
             var result = _postRepository.GetAll().Where(p => p.Id == Id).SingleOrDefault();
             return result == null ? null : result.Image;
+        }
+
+        public void UpdatePageCount(int id)
+        {
+
+            var updateCount = (from p in _postRepository.GetAll() where p.Id == id select p).SingleOrDefault();
+            updateCount.ViewCount++;
+            _postRepository.Update(updateCount);
+            _uow.SaveChanges();
+
         }
     }
 }
