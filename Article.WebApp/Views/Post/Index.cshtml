@@ -289,14 +289,14 @@
                 for (var i = 0; i < e.length; i++) {
                     var trueFalse = e[i].IsActive == true ? "Evet" : "Hayır";
                     html += ' <tr id="tr-' + e[i].Id + '">                                                                                         ' +
-                        '    <td>' + e[i].Title + '</td>                                                                                           ' +
-                        '    <td>' + e[i].CreatedOnString + '</td>                                                                                 ' +
-                        '    <td>' + trueFalse + '</td>                                                                                                 ' +
-                        '    <td class="text-center">                                                                                       ' +
+                        '    <td>' + e[i].Title + '</td>  '+                                                                                     
+                        '    <td>' + e[i].CreatedOnString + '</td>  '+                                                                              
+                        '    <td>' + trueFalse + '</td> '+                                                                                                
+                        '    <td class="text-center">'+                                                                                   
                         '        <a href="javascript:funcGetPostById(' + e[i].PostId + ')" class="btn btn-primary">' +
-                        '            <span class="fa fa-edit"></span>                                                                             ' +
-                        '        </a>                                                                                                       ' +
-                        '    </td>                                                                                                          ' +
+                        '            <span class="fa fa-edit"></span> '+                                                                            
+                        '        </a>      '+                                                                                                 
+                        '    </td>     '+                                                                                                     
                         '</tr>';
                 }
                 if (html=="") {

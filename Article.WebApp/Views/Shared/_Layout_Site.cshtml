@@ -1,10 +1,7 @@
 ﻿@using Article.Utilities
 
 @{
-                /**/
-
-
-                SessionManager logonUser = ((SessionManager)Session["SessionContext"]);
+    SessionManager logonUser = ((SessionManager)Session["SessionContext"]);
 }
 <!DOCTYPE html>
 <html>
@@ -57,7 +54,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Makale Ara">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Ara</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     @if ((SessionManager)Session["SessionContext"] != null)

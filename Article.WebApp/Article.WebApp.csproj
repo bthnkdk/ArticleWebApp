@@ -281,7 +281,6 @@
     <Content Include="Views\Site\Index.cshtml" />
     <Content Include="Views\Site\PostList.cshtml" />
     <Content Include="Views\Site\PostDetail.cshtml" />
-    <Content Include="Views\Shared\_Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
