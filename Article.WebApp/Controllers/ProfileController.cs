@@ -2,6 +2,7 @@
 using Article.DataAccess.UnitOfWork;
 using Article.Dto.Entity;
 using Article.Utilities;
+using Article.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,7 +51,7 @@ namespace Article.WebApp.Controllers
             {
                 WhichUpdate = "image",
                 Value = (byte[])Session["TempImage"],
-                Id = ((SessionManager)Session["SessionContext"]).Id
+                Id = CurrentSession.User.Id
             });
             //_uow.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
@@ -62,7 +63,7 @@ namespace Article.WebApp.Controllers
             var sameUser = _userService.getUserName(user.UserName);
             if (user.WhichUpdate == "nameJob")
             {
-                user.Id = ((SessionManager)Session["SessionContext"]).Id;
+                user.Id = CurrentSession.User.Id;
                 _userService.Update(user);
                 //_uow.SaveChanges();
                 return Json(true, JsonRequestBehavior.AllowGet);

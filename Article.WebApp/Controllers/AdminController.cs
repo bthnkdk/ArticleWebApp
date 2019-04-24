@@ -17,7 +17,7 @@ namespace Article.WebApp.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (Session["SessionContext"] == null)
+            if (Session["SessionContext"] == null) 
             {
                 Response.Redirect("/Login");
             }

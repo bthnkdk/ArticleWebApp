@@ -1,6 +1,7 @@
 ﻿using Article.BusinessLayer.Interfaces;
 using Article.DataAccess.UnitOfWork;
 using Article.Dto.Entity;
+using Article.WebApp.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Article.WebApp.Controllers
 {
+    [AuthAdmin]
     public class CategoryController : AdminController
     {
         private readonly ICategory _categoryService;

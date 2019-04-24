@@ -7,5 +7,7 @@
         public string FullName { get; set; }
         public string Job { get; set; }
         public byte[] Image { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool IsActive { get; set; }
     }
 }

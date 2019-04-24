@@ -46,6 +46,8 @@ namespace Article.BusinessLayer.Services
                                UserName = x.UserName,
                                Job = x.Job,
                                ImageUrl = x.Image != null ? "/ProfileImageView/" + x.Id : ConstantTypes.profileImage,
+                               IsActive = x.IsActive,
+                               IsAdmin = x.IsAdmin,
                            }).SingleOrDefault();
 
             return control;
@@ -92,7 +94,9 @@ namespace Article.BusinessLayer.Services
                             ImageUrl = x.Image != null ? "/ProfileImageView/" + x.Id : ConstantTypes.profileImage,
                             Job = x.Job,
                             UserName = x.UserName,
-                            Password = x.Password
+                            Password = x.Password,
+                            IsActive = x.IsActive,
+                            IsAdmin = x.IsAdmin
 
                         }).SingleOrDefault();
             user.Password = EncryptManager.Base64Decrypt(user.Password);

@@ -2,6 +2,7 @@
 using Article.DataAccess.UnitOfWork;
 using Article.Dto.Entity;
 using Article.Utilities;
+using Article.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Article.WebApp.Controllers
         [HttpPost]
         public ActionResult Insert(CommentDto comment)
         {
-            comment.UserId = ((SessionManager)Session["SessionContext"]).Id;
+            comment.UserId = CurrentSession.User.Id;
             comment.AddedDate = DateTime.Now;
             _commentService.Insert(comment);
             return Json(true, JsonRequestBehavior.AllowGet);

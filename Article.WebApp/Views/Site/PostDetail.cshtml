@@ -1,8 +1,9 @@
-﻿
+﻿@using Article.WebApp.Models
 @{
     ViewBag.Title = "PostDetail";
     Layout = "~/Views/Shared/_Layout_Site.cshtml";
-    Article.Utilities.SessionManager logonUser = (Article.Utilities.SessionManager)Session["SessionContext"];
+    //Article.Utilities.SessionManager logonUser = (Article.Utilities.SessionManager)Session["SessionContext"];
+
 }
 @model Article.Dto.Entity.PostDetailPageDto
 @section breadCrumb{
@@ -53,7 +54,7 @@
 
 
                             </ul>
-                            @if (logonUser != null)
+                            @if (CurrentSession.User!=null)
                             {
                                 <form class="form-inline">
                                     <div class="form-group">

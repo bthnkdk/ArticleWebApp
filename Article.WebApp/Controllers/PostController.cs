@@ -2,6 +2,8 @@
 using Article.DataAccess.UnitOfWork;
 using Article.Dto.Entity;
 using Article.Utilities;
+using Article.WebApp.Filters;
+using Article.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Article.WebApp.Controllers
 {
+    [AuthAdmin]
     public class PostController : AdminController
     {
         private readonly IPost _postService;
@@ -57,7 +60,7 @@ namespace Article.WebApp.Controllers
         public ActionResult Update(PostDto post)
         {
             post.Slug = _postService.GetSlugAnyPost(StringManager.ToSlug(post.Title));
-            post.UserId = ((SessionManager)Session["SessionContext"]).Id;
+            post.UserId = CurrentSession.User.Id;
             post.PostContent = HttpUtility.HtmlEncode(post.PostContent);
             if (Session["TempImage"] != null)
                 post.Image = (byte[])Session["TempImage"];
@@ -69,7 +72,7 @@ namespace Article.WebApp.Controllers
         public ActionResult Insert(PostDto post)
         {
             post.Slug = _postService.GetSlugAnyPost(StringManager.ToSlug(post.Title));
-            post.UserId = ((SessionManager)Session["SessionContext"]).Id;
+            post.UserId = CurrentSession.User.Id;
             post.PostContent = HttpUtility.HtmlEncode(post.PostContent);
             if (Session["TempImage"] != null)
                 post.Image = (byte[])Session["TempImage"];

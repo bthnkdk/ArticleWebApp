@@ -16,5 +16,7 @@ namespace Article.Dto.Entity
         public string Password { get; set; }
         public string WhichUpdate { get; set; }
         public byte[] Value { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool IsActive { get; set; }
     }
 }

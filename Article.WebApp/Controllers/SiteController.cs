@@ -58,6 +58,7 @@ namespace Article.WebApp.Controllers
             pdp.Comments = _commentService.GetCommentAll(id).ToList();
             pdp.Category = _catService.GetCategoryDetailByCategoryId(categoryId);
             pdp.PostList = _postService.GetPostAll(null).Take(5).ToList();
+
             if (Request.Cookies["test1"] != null)
             {
                 if (Request.Cookies["test1"][string.Format("pId_{0}", id)] == null)
@@ -116,6 +117,11 @@ namespace Article.WebApp.Controllers
         //    return Json(html, JsonRequestBehavior.AllowGet);
 
         //}
+
+       public ActionResult AccessDenied()
+        {
+            return View();
+        }
 
     }
 }
