@@ -1,8 +1,8 @@
-﻿@using Article.Utilities
+﻿@using Article.WebApp.Models
 
-@{
+@*@{
     SessionManager logonUser = ((SessionManager)Session["SessionContext"]);
-}
+}*@
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,14 +57,14 @@
                     <button type="submit" class="btn btn-primary">Ara</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    @if ((SessionManager)Session["SessionContext"] != null)
+                    @if (CurrentSession.User != null)
                     {
 
                         <li class="dropdown">
-                            <a href="~/Profile/Index" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@logonUser.FullName<span class="caret"></span></a>
+                            <a href="~/Profile/Index" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@CurrentSession.User.FullName<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action("Index","Profile")"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Profilim</a></li>
-                                @if (logonUser.IsAdmin == true)
+                                @if (CurrentSession.User.IsAdmin == true)
                                 {
                                     <li><a href="@Url.Action("Index","Post")"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Makalelerim</a></li>
                                     <li><a href="@Url.Action("Index","Category")"><span class="glyphicon glyphicon-open-file"></span>&nbsp;&nbsp;Kategoriler</a></li>
