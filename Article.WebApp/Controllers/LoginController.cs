@@ -2,6 +2,7 @@
 using Article.DataAccess.UnitOfWork;
 using Article.Dto.Entity;
 using Article.Utilities;
+using Article.WebApp.Models;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace Article.WebApp.Controllers
 
                 Mapper.DynamicMap(result, _sessionManager);
                 Session["SessionContext"] = _sessionManager;
+                CurrentSession.Set<UserDto>("login", result);// sessionmanageri sil kullanışsız
                 return Json("/Site/Index", JsonRequestBehavior.AllowGet);
             }
             else

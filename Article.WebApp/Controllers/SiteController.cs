@@ -118,5 +118,10 @@ namespace Article.WebApp.Controllers
 
         //}
 
+       public ActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }

@@ -50,7 +50,7 @@ textarea {
 .navbar-default {
     border: none;
     border-radius: 0;
-    background-color: #616067;
+    background-color:whitesmoke;
     text-align: center;
     border-top: 2px solid #11b99e;
 }
@@ -451,9 +451,12 @@ hr {
     height: 40px;
     text-align: center;
 }
+.navbar-default .navbar-nav>li>a {
+    color: #777 !important;
+}
 
 .navbar-nav li a:hover {
-    background-color: #009B8D !important;
+    background-color: #b0d2cf !important;
 }
 
 .navbar-nav li a, i {
