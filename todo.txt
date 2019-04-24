@@ -3,10 +3,11 @@ TODO
 - User Role
 - Register Sayfasý
 - Kullanýcý yorum silme düzenleme
-- Hit counter // ++++++
+- Hit counter
 - Post detail kýsmýnda o makale ile ilgili postlarý sað divde getirme hashtag ?
 - Makale beðenme
 - Load more olayý
 - Email aktivasyon ve þifremi unuttum
 - Anasayfada makale arama 
 - Anasayfa düzenlemeleri
+- Bundle config 
