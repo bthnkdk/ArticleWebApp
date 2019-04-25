@@ -52,7 +52,7 @@ textarea {
     border-radius: 0;
     background-color:whitesmoke;
     text-align: center;
-    border-top: 2px solid #11b99e;
+    border-top: 10px solid #11b99e;
 }
 
 .navbar {
@@ -456,13 +456,13 @@ hr {
 }
 
 .navbar-nav li a:hover {
-    background-color: #b0d2cf !important;
+    background-color: #11b99e !important;
 }
 
 .navbar-nav li a, i {
     font-weight: 400;
     text-shadow: 0px 1px 1px #333;
-    font-size: 16px
+    font-size: 15px;
 }
 
 .short-description {
@@ -486,7 +486,7 @@ i {
     margin-bottom: 20px;
     list-style: none;
     border-radius: 4px;
-    background: whitesmoke !important;
+    background: #ffe1506e  !important;
 }
 
 .dropdown-menu > li > a {

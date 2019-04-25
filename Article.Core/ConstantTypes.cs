@@ -13,6 +13,6 @@ namespace Article.Core
         public const int
             listCount = 9;
         public const int
-            postCount = 1;
+            postCount = 9;
     }
 }
