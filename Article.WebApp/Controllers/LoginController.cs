@@ -17,7 +17,7 @@ namespace Article.WebApp.Controllers
 
         private readonly IUser _userService;
         private readonly IUnitOfWork _uow;
-        private SessionManager _sessionManager;
+        //private SessionManager _sessionManager;
 
         public LoginController(IUnitOfWork uow, IUser userService) : base(uow)
         {
@@ -37,7 +37,7 @@ namespace Article.WebApp.Controllers
             if (result != null)
             {
 
-                Mapper.DynamicMap(result, _sessionManager);
+                //Mapper.DynamicMap(result, _sessionManager);
                 //Session["SessionContext"] = _sessionManager;
                 CurrentSession.Set<UserDto>("login", result);
                 return Json("/Site/Index", JsonRequestBehavior.AllowGet);

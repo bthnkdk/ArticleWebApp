@@ -28,27 +28,32 @@ namespace Article.WebApp.Controllers
             _commentService = commService;
         }
 
-
-        public static string html;
-
-
+        public static string navList;
 
         public ActionResult Index()
         {
 
-            html = null;
+            navList = null;
             var result = _catService.GetCategories();
 
             foreach (var item in result)
             {
-                html += "<li><a href='/" + StringManager.ToSlug(item.Name) + "-" + item.Id + "' style='color:" + item.Color + "!important;'><i class='" + item.Icon + "'></i>" + item.Name + "</a></li>";
+                navList += "<li><a href='/" + StringManager.ToSlug(item.Name) + "-" + item.Id + "' style='color:" + item.Color + "!important;'><i class='" + item.Icon + "'></i>" + item.Name + "</a></li>";
             }
-            return View(_postService.GetPostAll(null));
+            return View(_postService.GetPostAll(null,0));
         }
 
         public ActionResult PostList(int categoryId, string categoryName)
         {
-            return View(_postService.GetPostAll(categoryId));
+            Session["pageNumber"] = 0; //loadmore 
+            Session["categoryId"] = categoryId;
+            return View(_postService.GetPostAll(categoryId,0));
+        }
+
+        public ActionResult LoadMore()
+        {
+            Session["pageNumber"] = (int)Session["pageNumber"] + 1;
+            return PartialView("~/Views/Shared/_LoadMore.cshtml", _postService.GetPostAll((Int32)Session["categoryId"],(Int32)Session["pageNumber"]));
         }
 
         public ActionResult PostDetail(int id, int categoryId)
@@ -58,7 +63,7 @@ namespace Article.WebApp.Controllers
             pdp.PostDetail = _postService.GetPostDetail(id);
             pdp.Comments = _commentService.GetCommentAll(id).ToList();
             pdp.Category = _catService.GetCategoryDetailByCategoryId(categoryId);
-            pdp.PostList = _postService.GetPostAll(null).Take(5).ToList();
+            pdp.PostList = _postService.GetPostAll(null,0).Take(5).ToList();
 
             if (Request.Cookies["test1"] != null)
             {
@@ -101,7 +106,7 @@ namespace Article.WebApp.Controllers
         [HttpPost]
         public ActionResult Insert(CommentDto comment)
         {
-            comment.UserId =CurrentSession.User.Id;
+            comment.UserId = CurrentSession.User.Id;
             comment.AddedDate = DateTime.Now;
             _commentService.Insert(comment);
             _uow.SaveChanges();
@@ -119,10 +124,12 @@ namespace Article.WebApp.Controllers
 
         //}
 
-       public ActionResult AccessDenied()
+        public ActionResult AccessDenied()
         {
             return View();
         }
+
+        
 
     }
 }

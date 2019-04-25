@@ -12,7 +12,13 @@ namespace Article.WebApp
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-           
+
+            routes.MapRoute(
+               name: "LoadMore",
+               url: "Site/LoadMore", //load more
+               defaults: new { controller = "Site", action = "LoadMore"}
+           );
+
             routes.MapRoute(
                 name: "Default3",
                 url: "PostImageView/{id}/{w}/{h}", // makale resim

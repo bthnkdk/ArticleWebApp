@@ -9,7 +9,7 @@
             <li><a href="/site/Index">Anasayfa</a></li>
             @if (Model.Count() > 0)
             {
-            <li><a href="/@Article.Utilities.StringManager.ToSlug(Model[0].CategoryName)-@Model[0].CategoryId">@Model[0].CategoryName</a></li>
+                <li><a href="/@Article.Utilities.StringManager.ToSlug(Model[0].CategoryName)-@Model[0].CategoryId">@Model[0].CategoryName</a></li>
             }
         </ol>
     </div>
@@ -22,6 +22,7 @@
     }
     else
     {
+        <div id="loadMoreList"></div>
         foreach (var item in Model)
         {
             <div class="col-md-5 lib-item" style="margin-right:20px;">
@@ -46,7 +47,12 @@
             </div>
         }
     }
-
 </div>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@using (Ajax.BeginForm("LoadMore", "Site", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "loadMoreList", InsertionMode = InsertionMode.InsertAfter }))
+{
+    <input type="submit" class="btn btn-default" value="Daha fazla göster" style="width:100%" />
+}
+
 
 

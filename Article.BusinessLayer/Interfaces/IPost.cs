@@ -17,7 +17,7 @@ namespace Article.BusinessLayer.Interfaces
         void Delete(int id);
         int GetPostCount();
         bool AnyPostByCategoryId(int categoryId);// kategori numarasına göre makale var mı ?
-        List<PostUserDto> GetPostAll(int? categoryId); //tüm makaleleri getir
+        List<PostUserDto> GetPostAll(int? categoryId,int pageNumber); //tüm makaleleri getir
         PostDetailDto GetPostDetail(int id); //url koduna makale getir 
         byte[] GetPostImageById(int Id);
         void UpdatePageCount(int id);

@@ -54,7 +54,7 @@ namespace Article.BusinessLayer.Services
 
             return post;
         }
-        public List<PostUserDto> GetPostAll(int? categoryId)
+        public List<PostUserDto> GetPostAll(int? categoryId, int pageNumber)
         {
 
             var post = (from p in _postRepository.GetAll()
@@ -81,7 +81,7 @@ namespace Article.BusinessLayer.Services
                             ViewCount = p.ViewCount,
                             Count = commentCount.Count()
 
-                        }).Take(ConstantTypes.postCount).ToList();
+                        }).Skip(pageNumber*ConstantTypes.postCount).Take(ConstantTypes.postCount).ToList();
             return post;
         }
         public PostDetailDto GetPostDetail(int id)
