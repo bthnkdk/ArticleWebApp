@@ -1,5 +1,6 @@
 ﻿using Article.BusinessLayer.Interfaces;
 using Article.DataAccess.UnitOfWork;
+using Article.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Article.WebApp.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (Session["SessionContext"] == null) 
+            if (CurrentSession.User==null) 
             {
                 Response.Redirect("/Login");
             }

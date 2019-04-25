@@ -25,7 +25,7 @@ namespace Article.WebApp.Controllers
 
         public ActionResult Index()
         {
-            return View(_userService.Find(((SessionManager)Session["SessionContext"]).Id));
+            return View(_userService.Find(CurrentSession.User.Id));
         }
 
         [HttpPost]
@@ -71,9 +71,9 @@ namespace Article.WebApp.Controllers
             }
             if (sameUser != null)
             {
-                if (sameUser.UserName == ((SessionManager)Session["SessionContext"]).UserName)
+                if (sameUser.UserName == CurrentSession.User.UserName)
                 {
-                    user.Id = ((SessionManager)Session["SessionContext"]).Id;
+                    user.Id = CurrentSession.User.Id;
                     user.Password = EncryptManager.Base64Encrypt(user.Password);
                     _userService.Update(user);
                     //_uow.SaveChanges();
@@ -84,7 +84,7 @@ namespace Article.WebApp.Controllers
 
             else
             {
-                user.Id = ((SessionManager)Session["SessionContext"]).Id;
+                user.Id =CurrentSession.User.Id;
                 _userService.Update(user);
                 //_uow.SaveChanges();
                 return Json(true, JsonRequestBehavior.AllowGet);

@@ -27,7 +27,7 @@ namespace Article.WebApp.Controllers
         public ActionResult Index()
         {
 
-            return View(_postService.GetPostsByFilterParams(((SessionManager)Session["SessionContext"]).Id, 0, null, null));
+            return View(_postService.GetPostsByFilterParams(CurrentSession.User.Id, 0, null, null));
         }
 
         public ActionResult GetPostCount()
@@ -38,7 +38,7 @@ namespace Article.WebApp.Controllers
         public ActionResult GetPostsByFilterParams(int pageNumber, string title, int? categoryId)
         {
             title = title == "null" ? title = null : title; // js tarafında null değerini string olarak algılıyor ?
-            return Json(_postService.GetPostsByFilterParams(((SessionManager)Session["SessionContext"]).Id, pageNumber, title, categoryId), JsonRequestBehavior.AllowGet);
+            return Json(_postService.GetPostsByFilterParams(CurrentSession.User.Id, pageNumber, title, categoryId), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetPostDetailByPostId(int postId)
