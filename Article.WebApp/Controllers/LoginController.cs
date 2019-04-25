@@ -38,8 +38,8 @@ namespace Article.WebApp.Controllers
             {
 
                 Mapper.DynamicMap(result, _sessionManager);
-                Session["SessionContext"] = _sessionManager;
-                CurrentSession.Set<UserDto>("login", result);// sessionmanageri sil kullanışsız
+                //Session["SessionContext"] = _sessionManager;
+                CurrentSession.Set<UserDto>("login", result);
                 return Json("/Site/Index", JsonRequestBehavior.AllowGet);
             }
             else

@@ -6,8 +6,8 @@
 }
 
     body * {
-        border-radius: 0 !important;
-        text-shadow: 0px 1px 1px rgb(208, 208, 208);
+        /*border-radius: 0 !important;
+        text-shadow: 0px 1px 1px rgb(208, 208, 208);*/
     }
 
 
@@ -48,7 +48,7 @@ textarea {
 }
 
 .navbar-default {
-    border: none;
+    /*border: none;*/
     border-radius: 0;
     background-color:whitesmoke;
     text-align: center;
