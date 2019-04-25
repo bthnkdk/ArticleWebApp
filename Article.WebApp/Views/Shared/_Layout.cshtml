@@ -3,11 +3,6 @@
 
 
 
-    SessionManager logonUser = (SessionManager)Session["SessionContext"];
-
-}
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +55,7 @@
                 <li>
                     <a href="~/Site/Index"><i class="glyphicon glyphicon-certificate "></i>Anasayfa</a>
                 </li>
-                @if (logonUser.IsAdmin == true)
+                @if (CurrentSession.User.IsAdmin == true)
                 {
                     <li>
                         <a href="/Post/Index"><i class="glyphicon glyphicon-book"></i>Makale Sayfası</a>
