@@ -23,7 +23,7 @@ namespace Article.WebApp.Controllers
         {
             _userService = userService;
             _uow = uow;
-            _sessionManager = new SessionManager();
+            //_sessionManager = new SessionManager();
         }
         public ActionResult Index()
         {
@@ -38,7 +38,8 @@ namespace Article.WebApp.Controllers
             {
 
                 Mapper.DynamicMap(result, _sessionManager);
-                CurrentSession.Set<UserDto>("login", result);
+                Session["SessionContext"] = _sessionManager;
+                CurrentSession.Set<UserDto>("login", result);// sessionmanageri sil kullanışsız
                 return Json("/Site/Index", JsonRequestBehavior.AllowGet);
             }
             else
