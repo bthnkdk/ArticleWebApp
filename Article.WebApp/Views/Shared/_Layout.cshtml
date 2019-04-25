@@ -3,6 +3,11 @@
 
 
 
+    SessionManager logonUser = (SessionManager)Session["SessionContext"];
+
+}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,8 +57,10 @@
                     <a href="#"><i class="glyphicon glyphicon-comment "></i>Yorumlarım</a>
                 </li>
 
-                
-                @if (CurrentSession.User.IsAdmin==true)
+                <li>
+                    <a href="~/Site/Index"><i class="glyphicon glyphicon-certificate "></i>Anasayfa</a>
+                </li>
+                @if (logonUser.IsAdmin == true)
                 {
                     <li>
                         <a href="/Post/Index"><i class="glyphicon glyphicon-book"></i>Makale Sayfası</a>
@@ -72,11 +79,12 @@
                     <li>
                         <a href="#"><i class="glyphicon glyphicon-dashboard "></i>İstatistikler</a>
                     </li>
+                    <li>
+                        <a href="#"><i class="glyphicon glyphicon-user"></i>Kullanıcılar</a>
+                    </li>
+
 
                 }
-                <li>
-                    <a href="~/Site/Index"><i class="glyphicon glyphicon-certificate "></i>Anasayfa</a>
-                </li>
 
 
             </ul>
