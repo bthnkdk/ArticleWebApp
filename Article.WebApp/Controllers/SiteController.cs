@@ -40,20 +40,20 @@ namespace Article.WebApp.Controllers
             {
                 navList += "<li><a href='/" + StringManager.ToSlug(item.Name) + "-" + item.Id + "' style='color:" + item.Color + "!important;'><i class='" + item.Icon + "'></i>" + item.Name + "</a></li>";
             }
-            return View(_postService.GetPostAll(null,0));
+            return View(_postService.GetPostAll(null, 0));
         }
 
         public ActionResult PostList(int categoryId, string categoryName)
         {
             Session["pageNumber"] = 0; //loadmore 
             Session["categoryId"] = categoryId;
-            return View(_postService.GetPostAll(categoryId,0));
+            return View(_postService.GetPostAll(categoryId, 0));
         }
 
         public ActionResult LoadMore()
         {
             Session["pageNumber"] = (int)Session["pageNumber"] + 1;
-            return PartialView("~/Views/Shared/_LoadMore.cshtml", _postService.GetPostAll((Int32)Session["categoryId"],(Int32)Session["pageNumber"]));
+            return PartialView("~/Views/Shared/_LoadMore.cshtml", _postService.GetPostAll((Int32)Session["categoryId"], (Int32)Session["pageNumber"]));
         }
 
         public ActionResult PostDetail(int id, int categoryId)
@@ -63,7 +63,7 @@ namespace Article.WebApp.Controllers
             pdp.PostDetail = _postService.GetPostDetail(id);
             pdp.Comments = _commentService.GetCommentAll(id).ToList();
             pdp.Category = _catService.GetCategoryDetailByCategoryId(categoryId);
-            pdp.PostList = _postService.GetPostAll(null,0).Take(5).ToList();
+            pdp.PostList = _postService.GetPostAll(null, 0).Take(5).ToList();
 
             if (Request.Cookies["test1"] != null)
             {
@@ -129,7 +129,11 @@ namespace Article.WebApp.Controllers
             return View();
         }
 
-        
+        public ActionResult test()
+        {
+            return View();
+
+        }
 
     }
 }
